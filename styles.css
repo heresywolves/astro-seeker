@@ -28,7 +28,7 @@ body {
   overflow: hidden;
   font-family: "Tomorrow", monospace;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr min-content;
   grid-template-rows: 1fr 1fr 1fr;
 }
 
@@ -43,11 +43,17 @@ body {
 
 #terminalContainer {
   grid-column: 3;
-  grid-row: 1 / 3;
+  grid-row: 1 / 4;
+  width: 400px;
+  height: 100%;
+}
+
+#terminalScreen {
+  height: 100%; 
 }
 
 #shipControlsContainer {
-  grid-column: 2 / 4;
+  grid-column: 2 / 3;
   grid-row: 3;
 }
 
@@ -134,9 +140,12 @@ canvas {
 }
 
 #terminalOutput {
-  height: 500px;
+  height: 700px;
   /* overflow: hidden; */
   overflow-y: auto; /* Vertical scrolling */
+
+  overflow-wrap: break-word;
+  word-break: keep-all;
   /* overflow-y: hidden; */
   padding: 5px 20px 10px 20px;
   position: relative;

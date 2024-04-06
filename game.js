@@ -424,6 +424,10 @@ const astrotracker = (() => {
           let loadingDone = await terminal.printOutLoading(50);
           terminal.printOut('Deepscan complete. Printing results:');
           terminal.printOut(object.diagram, true);
+          terminal.printOut(`
+          Type: ${object.type}
+          Description: ${object.description}
+          `);
         }
       } else {
         terminal.printOut(`Object scan failed. There are no objects found with a name ${subject}`);
