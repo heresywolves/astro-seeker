@@ -1,0 +1,6 @@
+{
+  "ignore": [
+    "path/"
+  ],
+  "ext": "js, json, html"
+}

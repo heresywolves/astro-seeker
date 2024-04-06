@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="astrotrackerContainer">
+    <p>Sort: </p><button id="sortDistanceTrackerButton">DIST</button>
+    <div id="astrotrackerDisplay"></div>
+  </div>
+  <div id="radarContainer">
+    <button id="scaleRadarDown">+</button>
+    <button id="scaleRadarUp">-</button>
+      <!-- Vessel origin display -->
+    <button id="toggleVODButton" class="active">VOD</button>
+    <!-- Radar contact display -->
+    <button id="toggleRCDButton" class="active">RCD</button>
+    <button id="increaseRCDButton">RCD+</button>
+    <button id="decreaseRCDButton">RCD-</button>
+    <div id="radarScreenContainer">
+      <div id="topRightRadarInfo">
+        <div id="shipCoordinateXContainer">
+          <p>x: <span id="shipCoordinateX">0</span></p> 
+        </div>
+        <div id="shipCoordinateYContainer">
+          <p>y: <span id="shipCoordinateY">0</span></p>
+        </div> 
+      </div>
+      <div id="shipDirectionHudContainer">
+        <img id="shipDirectionPointer" src="./assets/icons/shipradaricon.svg">
+        <p id="shipDirection"><span id="shipDirectionValue">0</span>°</p>
+      </div>
+      <div id="bottomLeftInfo">
+        <p id="VODinfoText">VOD: <span id="VODvalueText">ON</span></p>
+        <p id="RCDinfoText">RCD: <span id="RCDvalueText">5</span></p>
+        <p id="scaleInfoText">Scale: x<span id="scaleValueText">1</span></p>
+      </div>
+      <div id="VOD"></div>
+      <canvas id="canvas"></canvas>
+    </div>
+  </div>
+  <div id="shipControlsContainer">
+    <p>This vessel is running Node.js <span id="node-version"></span></p>
+    <p>Chromium <span id="chrome-version"></span></p>
+    <p>and Electron <span id="electron-version"></span></p>
+    <div class="terminal"></div>
+    <button id="engineOnButton">Engine On</button>
+    <button id="engineOffButton">Engine Off</button>
+    <button id="increaseVCapButton">V-CAP +</button>
+    <button id="decreaseVCapButton">V-CAP -</button>
+    <div id="shipInfo">
+      <p>Velocity: <span id="shipVelocity">0</span> m/s | <span id="velocityCap">100</span> V-CAP</p>
+    </div>
+    <button id="turnLeftButton">Turn Left</button>
+    <button id="turnRightButton">Turn Right</button>
+  </div>
+  <div id="terminalContainer">
+    <div id="terminalScreen">
+      <div id="terminalOutput"></div>
+      <input type="text" id="terminalInput">
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
