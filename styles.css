@@ -44,7 +44,7 @@ body {
 #terminalContainer {
   grid-column: 3;
   grid-row: 1 / 4;
-  width: 400px;
+  width: 500px;
   height: 100%;
 }
 
@@ -143,9 +143,7 @@ canvas {
   height: 700px;
   /* overflow: hidden; */
   overflow-y: auto; /* Vertical scrolling */
-
-  overflow-wrap: break-word;
-  word-break: keep-all;
+  word-wrap: break-word;
   /* overflow-y: hidden; */
   padding: 5px 20px 10px 20px;
   position: relative;

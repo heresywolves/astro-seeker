@@ -423,10 +423,11 @@ const astrotracker = (() => {
           terminal.printOut(`Performing a deepscan...`);
           let loadingDone = await terminal.printOutLoading(50);
           terminal.printOut('Deepscan complete. Printing results:');
-          terminal.printOut(object.diagram, true);
-          terminal.printOut(`
-          Type: ${object.type}
-          Description: ${object.description}
+          // format white spaces in the diagram
+          let formattedDiagram = object.diagram.replaceAll(' ', '&nbsp;') + "\n";
+          terminal.printOut(formattedDiagram, true);
+          terminal.printOut(`Type: ${object.type} \n
+          Description: ${object.description} \n
           `);
         }
       } else {
@@ -568,9 +569,7 @@ const terminal = (function() {
     const parts = text.split('\n');
     // Append each part as a text node or a break line
     parts.forEach((part, index) => {
-        // format white spaces
-        let formattedPart = part.replaceAll(' ', '&nbsp;');
-        outputEl.innerHTML += formattedPart;
+        outputEl.innerHTML += part;
         // Add a break line if not the last part
         if (index < parts.length - 1) {
             outputEl.appendChild(document.createElement('br'));
