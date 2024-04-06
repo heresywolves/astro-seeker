@@ -50,6 +50,8 @@ body {
 
 #terminalScreen {
   height: 100%; 
+  display: flex;
+  flex-direction: column;
 }
 
 #shipControlsContainer {
@@ -140,11 +142,9 @@ canvas {
 }
 
 #terminalOutput {
-  height: 700px;
-  /* overflow: hidden; */
+  flex: 1;
   overflow-y: auto; /* Vertical scrolling */
   word-wrap: break-word;
-  /* overflow-y: hidden; */
   padding: 5px 20px 10px 20px;
   position: relative;
   background-color: black;
