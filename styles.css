@@ -176,3 +176,7 @@ canvas {
 button.active {
   background-color: rgb(170, 255, 0);
 }
+
+.centered-text {
+  text-align: center;
+}

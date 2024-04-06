@@ -2,6 +2,9 @@ const { app, BrowserWindow } = require('electron');
 const path = require('node:path');
 const electronReload = require('electron-reload');
 
+
+// Entry point of the Electron application
+
 function createWindow() {
     const win = new BrowserWindow({
         width: 1600,

@@ -1,8 +1,8 @@
 const objectsInSpace = [];
 
 function generateObjectDiagram() {
-  availableSymbols = ["|", "-", "_"];
-  resultStr = ``;
+  availableSymbols = ["|", "-", "_", "."];
+  resultStr = `\n`;
   let lineCount = 1;
   let numOfSpaces = randomInt(5) + 5;
   const MAXROWSYMBOLS = 20;
@@ -27,7 +27,7 @@ function generateObjectDiagram() {
         line = line + " ";
       }
       let randSymbol = availableSymbols[randomInt(availableSymbols.length)];
-      for (let i = 0; i < MAXROWSYMBOLS/2 - numOfSpaces + 1; i++) {
+      for (let i = 0; i < MAXROWSYMBOLS/2 - numOfSpaces; i++) {
         line = line + randSymbol;
       }
       resultStr = resultStr + line + reverseString(line) + "\n";
@@ -36,7 +36,8 @@ function generateObjectDiagram() {
     else {
       numOfSpaces += randomInt(3) - 1;
       let randSymbol = availableSymbols[randomInt(availableSymbols.length)];
-      for (let i = 0; i < numOfSpaces; i++) {
+      // -1 is needed here because otherwise it creates too much symbols
+      for (let i = 0; i < numOfSpaces - 1; i++) {
         line = line + " ";
       }
       line = line + randSymbol;

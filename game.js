@@ -402,7 +402,6 @@ const astrotracker = (() => {
   }
 
   const scan = async (subject) => {
-    clearAstrotrackerDisplay();
     if (subject && subject != "") {
       let object = getObjectByName(subject);
       if (object) {
@@ -422,13 +421,16 @@ const astrotracker = (() => {
         // if the object is close enough performa a deepscan
         if (calculateDistance(ship, object) <= 20) {
           terminal.printOut(`Performing a deepscan...`);
-          let loadingDone = await terminal.printOutLoading(300);
+          let loadingDone = await terminal.printOutLoading(50);
           terminal.printOut('Deepscan complete. Printing results:');
+          terminal.printOut(object.diagram, true);
         }
       } else {
         terminal.printOut(`Object scan failed. There are no objects found with a name ${subject}`);
       }
     }
+    // Update scanner display
+    clearAstrotrackerDisplay();
     objectsInSpace.forEach((object) => {
       const objContainer = document.createElement('div');
       objContainer.classList.add('scanned-obj-container');
@@ -552,14 +554,19 @@ const terminal = (function() {
     }
   }
 
-  const printOut = (text) => {
+  const printOut = (text, centered) => {
     const outputEl = document.createElement('p');
     outputEl.classList.add('terminal-output');
+    if (centered) {
+      outputEl.classList.add('centered-text');
+    }
     // Split the text into two parts where you want the break line
     const parts = text.split('\n');
     // Append each part as a text node or a break line
     parts.forEach((part, index) => {
-        outputEl.appendChild(document.createTextNode(part));
+        // format white spaces
+        let formattedPart = part.replaceAll(' ', '&nbsp;');
+        outputEl.innerHTML += formattedPart;
         // Add a break line if not the last part
         if (index < parts.length - 1) {
             outputEl.appendChild(document.createElement('br'));
