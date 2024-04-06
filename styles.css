@@ -1,20 +1,20 @@
 @font-face {
   font-family: "Anonymous_Pro";
-  src: url('./Anonymous_Pro/AnonymousPro-Regular.ttf') format('truetype');
+  src: url('./assets/fonts/Anonymous_Pro/AnonymousPro-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "VT323";
-  src: url('./VT323/VT323-Regular.ttf') format('truetype');
+  src: url('./assets/fonts/VT323/VT323-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Tomorrow";
-  src: url('./Tomorrow/Tomorrow-Regular.ttf') format('truetype');
+  src: url('./assets/fonts/Tomorrow/Tomorrow-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
