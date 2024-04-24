@@ -1,3 +1,5 @@
+const { randomInt, constructObjectName, reverseString } = require('../components/utils');
+
 const objectsInSpace = [];
 
 const lowSecTypes = {
@@ -260,33 +262,9 @@ function generateObjectsInSpace() {
   }
 }
 
-function constructObjectName(index) {
-  let firstRandL = getRandomUppercaseLetter();
-  let secondRandL = getRandomUppercaseLetter();
-  return `${firstRandL}${secondRandL}-${randomInt(10)}${randomInt(10)}${index}${randomInt(10)}`;
-}
-
-function getRandomUppercaseLetter() {
-    // Generate a random number between 65 (ASCII for 'A') and 90 (ASCII for 'Z')
-    const randomNumber = Math.floor(Math.random() * (90 - 65 + 1)) + 65;
-    // Convert the random number to its corresponding character
-    const randomUppercaseLetter = String.fromCharCode(randomNumber);
-    return randomUppercaseLetter;
-}
-
-function reverseString(str) {
-    var splitString = str.split(""); // var splitString = "hello".split("");
-    var reverseArray = splitString.reverse(); // var reverseArray = ["h", "e", "l", "l", "o"].reverse();
-    var joinArray = reverseArray.join(""); // var joinArray = ["o", "l", "l", "e", "h"].join("");
-    return joinArray; // "olleh"
-}
-
 generateObjectsInSpace();
 console.log(objectsInSpace);
 
-// random int including 0 and excluding max
-function randomInt(max) {
-  return Math.floor(Math.random() * max);
-}
+
 
 module.exports = objectsInSpace
