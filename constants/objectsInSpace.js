@@ -10,7 +10,8 @@ const objectsInSpace = (() => {
 module.exports = objectsInSpace
 
 // This is called after the export because the utils needs to reference this object when created
-const { randomInt, constructObjectName, reverseString } = require('../components/utils');
+const { randomInt, constructObjectName, reverseString, shuffleArray } = require('../components/utils');
+const loot = require('../constants/loot');
 
 const lowSecTypes = {
   small: [
@@ -195,6 +196,19 @@ function generateObjectDiagram() {
   return resultStr;
 }
 
+function generateLoot(teir) {
+  const lootArray = [];
+  if (teir === 'low') {
+    let lootQty = randomInt(10) + 2;
+    const possible = loot.filter((item) => item.teir === 'low');
+    for (let i = 0; i < lootQty; i++) {
+      lootArray.push(possible[randomInt(possible.length)]);
+    }
+  }
+  return lootArray;
+}
+
+// LOW TEIR 
 function generateObjectsInSpace() {
   let count = 0;
   let totalMediumLvlObjects = randomInt(6) + 5;
@@ -222,6 +236,7 @@ function generateObjectsInSpace() {
       diagram: generateObjectDiagram(),
       type: typeObj.type,
       description: typeObj.description,
+      loot: generateLoot('low'),
     })
     count++;
   }

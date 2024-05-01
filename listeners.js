@@ -122,15 +122,14 @@ engineOffButton.addEventListener('click', () => {
     ship.calculateShipsPosition();
     radar.update();
   
-    // Update ship's HUD or display to reflect new position
-    ship.updateShipPosition(); // Assuming a function to update ship's position display
+    ship.updateShipPosition(); 
 
     if (ship.velocity <= 0) {
       ship.velocity = 0;
       stopSlowDownInterval();
     }
 
-    ship.updateShipVelocity();
+    // ship.updateShipVelocity();
 
   }, settings.thrustingSpeed);
 });

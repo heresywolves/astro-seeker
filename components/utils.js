@@ -25,6 +25,18 @@ const getObjectByName = (name) => {
   return foundEl;
 }
 
+function shuffleArray(orig) {
+  const array = [...orig];
+  let currentIndex = array.length;
+  while (currentIndex != 0) {
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
 // Euclidean distance formula
 function calculateDistance(object1, object2) {
     const x1 = object1.x;
@@ -76,5 +88,6 @@ module.exports = {
   calculateDistance,
   randomInt,
   constructObjectName,
-  reverseString
+  reverseString,
+  shuffleArray
 }
