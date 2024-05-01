@@ -14,3 +14,16 @@ radar.update();
 ship.updateShipDirection();
 
 radar.changeScale(1);
+
+function updateGame() {
+
+  // ship.updateShipVelocity();
+}
+
+function gameLoop() {
+    updateGame(); 
+    console.log('running');
+    requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
