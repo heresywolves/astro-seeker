@@ -1,6 +1,16 @@
-const { randomInt, constructObjectName, reverseString } = require('../components/utils');
+const objectsInSpace = (() => {
+  const all = [];
 
-const objectsInSpace = [];
+  const getAll = () => { return all };
+  const add = (obj) => { all.push(obj) }
+
+  return {getAll, add, all}
+})();
+
+module.exports = objectsInSpace
+
+// This is called after the export because the utils needs to reference this object when created
+const { randomInt, constructObjectName, reverseString } = require('../components/utils');
 
 const lowSecTypes = {
   small: [
@@ -202,7 +212,7 @@ function generateObjectsInSpace() {
     } else {
       typeObj = lowSecTypes.large[randomInt(lowSecTypes.large.length)];
     }
-    objectsInSpace.push({
+    objectsInSpace.add({
       x: randomInt(4000) - 2000,
       y: randomInt(4000) - 2000,
       radius: randRadius,
@@ -224,7 +234,7 @@ function generateObjectsInSpace() {
     } else {
       typeObj = mediumSecTypes.large[randomInt(mediumSecTypes.large.length)];
     }
-    objectsInSpace.push({
+    objectsInSpace.add({
       //50% of being a negative value
       x: (randomInt(2)) ? randomInt(2000) + 1000 : -(randomInt(2000) + 1000),
       y: (randomInt(2)) ? randomInt(2000) + 1000 : -(randomInt(2000) + 1000),
@@ -247,7 +257,7 @@ function generateObjectsInSpace() {
     } else {
       typeObj = highSecTypes.large[randomInt(highSecTypes.large.length)];
     }
-    objectsInSpace.push({
+    objectsInSpace.add({
       x: (randomInt(2)) ? randomInt(4000) + 2000 : -(randomInt(4000) + 2000),
       y: (randomInt(2)) ? randomInt(4000) + 2000 : -(randomInt(4000) + 2000),
       radius: randRadius,
@@ -266,5 +276,3 @@ generateObjectsInSpace();
 console.log(objectsInSpace);
 
 
-
-module.exports = objectsInSpace

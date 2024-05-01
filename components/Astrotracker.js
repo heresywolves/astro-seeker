@@ -1,3 +1,8 @@
+const ship = require('./Ship.js');
+const { calculateDistance, getObjectByName } = require('./utils.js');
+let { astrotrackerDisplay, astrotrackerContainer } = require('../DOMelements.js');
+const objectsInSpace = require('../constants/objectsInSpace.js');
+
 const astrotracker = (() => {
   let astrotrackerDistSorted = false;
 
@@ -22,6 +27,8 @@ const astrotracker = (() => {
   }
 
   const scan = async (subject) => {
+    // this require can't be on the top because the terminal references astrotracker when initialized
+    const terminal = require('./Terminal.js')
     if (subject && subject != "") {
       let object = getObjectByName(subject);
       if (object) {
@@ -56,7 +63,7 @@ const astrotracker = (() => {
     }
     // Update scanner display
     clearAstrotrackerDisplay();
-    objectsInSpace.forEach((object) => {
+    objectsInSpace.getAll().forEach((object) => {
       const objContainer = document.createElement('div');
       objContainer.classList.add('scanned-obj-container');
       const name = document.createElement('span');

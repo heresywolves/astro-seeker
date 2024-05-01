@@ -1,9 +1,10 @@
+const objectsInSpace = require('../constants/objectsInSpace.js');
 
 function roundToFive(x) {
   return Math.ceil(x / 5) * 5; 
 }
 
-function drawCircle(x, y, radius) {
+function drawCircle(x, y, radius, context) {
   context.beginPath();
   context.arc(x, y, radius, 0, 2 * Math.PI, false);
   context.fillStyle = 'white';
@@ -16,7 +17,7 @@ function clearCanvas(context) {
 
 const getObjectByName = (name) => {
   let foundEl;
-  objectsInSpace.forEach((el) => {
+  objectsInSpace.getAll().forEach((el) => {
     if (el.name === name) {
       foundEl = el;
     }

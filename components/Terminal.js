@@ -1,3 +1,5 @@
+const { terminalOutput } = require('../DOMelements.js');
+const astrotracker = require('./Astrotracker');
 
 const terminal = (function() {
   const commandHistory = [];
@@ -40,7 +42,8 @@ const terminal = (function() {
 
   const runHelp = () => {
     printOut(`Here is a list of available commands:
-      There are none yet....  `)
+      scan - Perform a scan of the sector and send results to the Astrotracker.
+      scan [subject] - Deepscan of the subject specified.`)
   }
 
   const runTrackerScan = (subject) => {
@@ -93,3 +96,5 @@ const terminal = (function() {
 
   return {sendCommand, getPastCommand, getRecentCommand, printOut, clearLastOutput, printOutLoading}
 })();
+
+module.exports = terminal;

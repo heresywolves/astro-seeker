@@ -1,3 +1,12 @@
+const { 
+  shipVelocityHud,
+  shipCoordinatesXHud,
+  shipCoordinatesYHud,
+  shipDirectionPointer,
+  shipDirectionValueHud,
+  velocityCapHud
+} = require('../DOMelements.js');
+
 const ship = {
   x: 0,
   y: 0,
@@ -29,7 +38,7 @@ const ship = {
     } else if (ship.direction >= 360) {
       ship.direction -= 360;
     }
-    updateShipDirection();
+    ship.updateShipDirection();
   },
   updateShipVelocityCap: () => {
     velocityCapHud.textContent = ship.velocityCap;

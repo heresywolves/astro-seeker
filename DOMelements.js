@@ -4,7 +4,7 @@ const shipDirectionPointer = document.getElementById("shipDirectionPointer");
 const shipDirectionValueHud = document.getElementById("shipDirectionValue");
 const engineOnButton = document.getElementById('engineOnButton');
 const engineOffButton = document.getElementById('engineOffButton');
-const canvas = document.getElementById('canvas');
+// const canvas = document.getElementById('canvas');
 const shipVelocityHud = document.getElementById('shipVelocity');
 const scaleRadarDownButton = document.getElementById('scaleRadarDown');
 const scaleRadarUpButton = document.getElementById('scaleRadarUp');
@@ -51,7 +51,6 @@ module.exports = {
   VODhud,
   VODvalueText,
   velocityCapHud,
-  objectsInSpace,
   terminalInput,
   terminalOutput,
   astrotrackerDisplay,

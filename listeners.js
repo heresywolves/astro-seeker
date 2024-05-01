@@ -1,4 +1,31 @@
+const settings = require('./gameSettings.js');
+const {
+  turnLeftButton,
+  turnRightButton,
+  increaseRCDButton,
+  VODhud,
+  VODvalueText,
+  decreaseRCDButton,
+  toggleVODButton,
+  increaseVCapButton,
+  decreaseVCapButton,
+  terminalInput,
+  RCDvalueText,
+  toggleRCDButton,
+  scaleValueText,
+  scaleRadarDownButton,
+  scaleRadarUpButton,
+  engineOffButton,
+  engineOnButton,
+  sortDistanceTrackerButton
+} = require('./DOMelements.js');
+const astrotracker = require('./components/Astrotracker.js');
+const radar = require('./components/Radar.js');
+const ship = require('./components/Ship.js');
+const terminal = require('./components/Terminal.js')
 
+let turningInterval;
+let thrustingInterval;
 
 // Disable right mouse button click
 document.addEventListener('mousedown', (event) => {
@@ -7,16 +34,13 @@ document.addEventListener('mousedown', (event) => {
   }
 });
 
-let turningInterval;
-let thrustingInterval;
-
 // Event listener for turning the ship left
 turnLeftButton.addEventListener("mousedown", function(e) {
   // disable right click to prevent bugs
   if (e.button === 2) return;
   turningInterval = setInterval(function() {
-    turnShip(-5); // Adjust the angle as needed for continuous turning speed
-  }, turningSpeed); // Adjust the interval delay as needed for continuous turning speed
+    ship.turnShip(-5); // Adjust the angle as needed for continuous turning speed
+  }, settings.turningSpeed); // Adjust the interval delay as needed for continuous turning speed
 });
 
 // Event listener to stop turning the ship when mouse is released
@@ -34,8 +58,8 @@ turnLeftButton.addEventListener("mouseout", function() {
 turnRightButton.addEventListener("mousedown", function(e) {
   if (e.button === 2) return;
   turningInterval = setInterval(function() {
-    turnShip(5); // Adjust the angle as needed for continuous turning speed
-  }, turningSpeed); // Adjust the interval delay as needed for continuous turning speed
+    ship.turnShip(5); // Adjust the angle as needed for continuous turning speed
+  }, settings.turningSpeed); // Adjust the interval delay as needed for continuous turning speed
 });
 
 // Event listener to stop turning the ship when mouse is released
@@ -62,22 +86,22 @@ engineOnButton.addEventListener('click', () => {
     } 
 
      else if (ship.velocity > ship.velocityCap) {
-      ship.velocity -= accelerationRate;
+      ship.velocity -= settings.accelerationRate;
     }
     
     else {
-      ship.velocity += accelerationRate;
+      ship.velocity += settings.accelerationRate;
     }
   
-    calculateShipsPosition();
+    ship.calculateShipsPosition();
     radar.update();
   
     // Update ship's HUD or display to reflect new position
-    updateShipPosition(); // Assuming a function to update ship's position display
-    updateShipVelocity();
-    updateShipVelocityCap();
+    ship.updateShipPosition(); // Assuming a function to update ship's position display
+    ship.updateShipVelocity();
+    ship.updateShipVelocityCap();
 
-  }, thrustingSpeed);
+  }, settings.thrustingSpeed);
 });
 
 // this interval needs to be available to the Engine ON handler
@@ -93,34 +117,34 @@ engineOffButton.addEventListener('click', () => {
   ship.engineOn = false;
   clearInterval(thrustingInterval);
   slowDownInterval = setInterval(function() {
-    ship.velocity <= 0 ? ship.velocity = 0 : ship.velocity -= accelerationRate;
+    ship.velocity <= 0 ? ship.velocity = 0 : ship.velocity -= settings.accelerationRate;
     
-    calculateShipsPosition();
+    ship.calculateShipsPosition();
     radar.update();
   
     // Update ship's HUD or display to reflect new position
-    updateShipPosition(); // Assuming a function to update ship's position display
+    ship.updateShipPosition(); // Assuming a function to update ship's position display
 
     if (ship.velocity <= 0) {
       ship.velocity = 0;
       stopSlowDownInterval();
     }
 
-    updateShipVelocity();
+    ship.updateShipVelocity();
 
-  }, thrustingSpeed);
+  }, settings.thrustingSpeed);
 });
 
 // Vessel origin display
 toggleVODButton.addEventListener('click', () => {
-  if(VODisOn) {
+  if(radar.VODisOn) {
     VODhud.style.display = 'none';
-    VODisOn = false;
+    radar.VODisOn = false;
     VODvalueText.textContent = 'OFF';
     toggleVODButton.classList.remove('active');
   } else {
     VODhud.style.display = 'block';
-    VODisOn = true;
+    radar.VODisOn = true;
     VODvalueText.textContent = 'ON';
     toggleVODButton.classList.add('active');
   }
@@ -128,29 +152,31 @@ toggleVODButton.addEventListener('click', () => {
 
 // Radar contact display
 toggleRCDButton.addEventListener('click', () => {
-  if (RCDisOn) {
-    RCDisOn = false;
+  if (radar.isRCDon()) {
+    radar.toggleRCD();
     RCDvalueText.textContent = "OFF";
     toggleRCDButton.classList.remove('active');
   } else {
-    RCDisOn = true;
-    RCDvalueText.textContent = RCDradius;
+    radar.toggleRCD();
+    RCDvalueText.textContent = radar.getRCDRadius();
     toggleRCDButton.classList.add('active');
   }
   radar.update();
 })
 
 increaseRCDButton.addEventListener('click', () => {
-  if (RCDradius < maxRCD) {
-    RCDradius += 5;
+  let RCDradius = radar.getRCDRadius();
+  if (RCDradius < radar.maxRCD) {
+    radar.setRCDRadius(RCDradius += 5);
     RCDvalueText.textContent = RCDradius;
   }
   radar.update();
 })
 
 decreaseRCDButton.addEventListener('click', () => {
+  let RCDradius = radar.getRCDRadius();
   if (RCDradius > 5) {
-    RCDradius -= 5;
+    radar.setRCDRadius(RCDradius -= 5);
     RCDvalueText.textContent = RCDradius;
   }
   radar.update();
@@ -162,7 +188,7 @@ increaseVCapButton.addEventListener('click', () => {
   if (newVCap <= ship.engineLvl * 100) {
     ship.velocityCap = newVCap;
   }
-  updateShipVelocityCap();
+  ship.updateShipVelocityCap();
 })
 
 decreaseVCapButton.addEventListener('click', () => {
@@ -170,7 +196,7 @@ decreaseVCapButton.addEventListener('click', () => {
   if (newVCap >= 100) {
     ship.velocityCap = newVCap;
   }
-  updateShipVelocityCap();
+  ship.updateShipVelocityCap();
 })
 
 
@@ -205,7 +231,6 @@ terminalInput.addEventListener('keydown', (event) => {
 
 
 sortDistanceTrackerButton.addEventListener('click', () => {
-  console.log(astrotracker.isSortedByDist());
     if (!astrotracker.isSortedByDist()) {
       sortDistanceTrackerButton.classList.add('active');
       astrotracker.sortByDistance();
