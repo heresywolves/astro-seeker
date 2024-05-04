@@ -30,7 +30,8 @@ const astrotracker = (() => {
     // this require can't be on the top because the terminal references astrotracker when initialized
     const terminal = require('./Terminal.js')
     if (subject && subject != "") {
-      let object = getObjectByName(subject);
+      let object = getObjectByName(objectsInSpace, subject);
+
       if (object) {
         object.publicLvl = object.lvl;
         distanceToObject = calculateDistance(ship, object);

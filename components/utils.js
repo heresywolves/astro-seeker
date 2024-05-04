@@ -1,4 +1,3 @@
-const objectsInSpace = require('../constants/objectsInSpace.js');
 
 function roundToFive(x) {
   return Math.ceil(x / 5) * 5; 
@@ -19,9 +18,9 @@ function clearCanvas(context) {
   context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-const getObjectByName = (name) => {
+const getObjectByName = (objects, name) => {
   let foundEl;
-  objectsInSpace.getAll().forEach((el) => {
+  objects.getAll().forEach((el) => {
     if (el.name === name) {
       foundEl = el;
     }
