@@ -28,6 +28,7 @@ const astrotrackerContainer = document.getElementById('astrotrackerContainer');
 const sortDistanceTrackerButton = document.getElementById('sortDistanceTrackerButton');
 const shipCargoDisplay = document.getElementById('shipCargoDisplay');
 const droneCargoDisplay = document.getElementById('droneCargoDisplay');
+const dronesDisplay = document.getElementById('dronesDisplay');
 
 module.exports = {
   turnLeftButton,
@@ -59,5 +60,6 @@ module.exports = {
   astrotrackerContainer,
   sortDistanceTrackerButton,
   shipCargoDisplay,
-  droneCargoDisplay
+  droneCargoDisplay,
+  dronesDisplay
 }

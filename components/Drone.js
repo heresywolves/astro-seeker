@@ -60,6 +60,7 @@ const drone = () => {
   return {
     getCharge,
     getInventory,
+    getCharge,
     deploy,
     setName,
     getName
