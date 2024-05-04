@@ -1,6 +1,6 @@
 const { droneCargoContainer } = require('../DOMelements');
 const { getClosestObj } = require('../components/utils');
-const objectsInSpace = require('../constants/objectsInSpace.js');
+const ship = require('./Ship');
 
 const drone = () => {
   const MAXCHARGE = 100;
@@ -50,7 +50,6 @@ const drone = () => {
   }
 
   const deploy = () => {
-    console.log(getClosestObj(objectsInSpace.getAll()));
     
     if (chargingTimer) {
       cancelCharging()

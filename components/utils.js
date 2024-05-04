@@ -55,18 +55,19 @@ function calculateDistance(object1, object2) {
     return Math.floor(sqrtDistance * 10) - Math.floor(object2.radius) * 10 - 70;
 }
 
-function getClosestObj(objects) {
-  let lowest = 999999999;
+function getClosestObj(ship, objects) {
+  let closestDist = Infinity;
+  let closestObj = objects[0];
   
   for (let i = 0; i < objects.length; i++) {
     let object = objects[i];
-    console.log(object);
     let distance = calculateDistance(ship, object);
-    if (distance < lowest) {
-      lowest = distance;
+    if (distance < closestDist) {
+      closestDist = distance;
+      closestObj = object;
     }
   }
-  return lowest;
+  return closestObj;
 }
 
 // random int including 0 and excluding max

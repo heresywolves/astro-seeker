@@ -1,6 +1,7 @@
 const { dronesDisplay } = require('../DOMelements.js');
 const drone = require('./Drone');
-const { capitalizeFirstLetter } = require('./utils');
+const { capitalizeFirstLetter, getClosestObj, calculateDistance } = require('./utils');
+const objectsInSpace = require('../constants/objectsInSpace.js');
 
 const dronebay = (() => {
   const drones = [];
@@ -39,10 +40,14 @@ const dronebay = (() => {
     if (!name) {
       return "No drone name specified. Deployment cancelled";
     }  
+    let closestObj = getClosestObj(ship, objectsInSpace.getAll());
+    console.log(calculateDistance(ship, closestObj));
+    
     for (let i = 0; i < drones.length; i++) {
       let curDrone = drones[i]; 
       if (curDrone.getName() === name.toLowerCase()) {
-        return `Deploying ${capitalizeFirstLetter(name)}...`
+        curDrone.deploy();
+        return `Deployed ${capitalizeFirstLetter(name)}`
       }
     }
     return `There are no drones with the name specified.`

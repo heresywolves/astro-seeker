@@ -100,7 +100,14 @@ const astrotracker = (() => {
     astrotrackerDistSorted = true;
   }
 
-  return {sortByDistance, isSortedByDist, clearAstrotrackerDisplay, scan, turnOffSortByDist, turnOnSortByDist}
+  return {
+    sortByDistance,
+    isSortedByDist, 
+    clearAstrotrackerDisplay, 
+    scan, 
+    turnOffSortByDist, 
+    turnOnSortByDist
+  }
 })();
 
 module.exports = astrotracker;
