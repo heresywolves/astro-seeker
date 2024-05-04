@@ -5,6 +5,7 @@ require('./components/Astrotracker.js');
 const radar = require('./components/Radar.js');
 const ship = require('./components/Ship.js');
 require('./components/Terminal.js');
+require('./components/DroneBay.js');
 require('./listeners.js');
 
 
@@ -15,15 +16,15 @@ ship.updateShipDirection();
 
 radar.changeScale(1);
 
-function updateGame() {
+// function updateGame() {
 
-  // ship.updateShipVelocity();
-}
+//   // ship.updateShipVelocity();
+// }
 
-function gameLoop() {
-    updateGame(); 
-    console.log('running');
-    requestAnimationFrame(gameLoop);
-}
+// function gameLoop() {
+//     updateGame(); 
+//     console.log('running');
+//     requestAnimationFrame(gameLoop);
+// }
 
-gameLoop();
+// gameLoop();

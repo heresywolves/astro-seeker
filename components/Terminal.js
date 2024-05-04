@@ -1,5 +1,6 @@
 const { terminalOutput } = require('../DOMelements.js');
 const astrotracker = require('./Astrotracker');
+const dronebay = require('./DroneBay.js');
 
 const terminal = (function() {
   const commandHistory = [];
@@ -66,6 +67,16 @@ const terminal = (function() {
         } else {
           printOut(`Scanning complete. Results sent to the Astrotracker`)
           runTrackerScan();
+        }
+        break;
+      case 'drone':
+        if (words[1] === 'deploy' && !words[2]) {
+          printOut(`Please specify the drones for deployment: 
+          drone deploy [name]`);
+        } else if (words[1] === 'deploy' && words[2]) {
+          let droneName = words[2];
+          let deploymentMessage = dronebay.deploy(droneName);
+            printOut(deploymentMessage);
         }
         break;
       default:

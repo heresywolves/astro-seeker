@@ -1,7 +1,11 @@
+const { droneCargoContainer } = require('../DOMelements');
+const { getClosestObj } = require('../components/utils');
+const objectsInSpace = require('../constants/objectsInSpace.js');
 
 const drone = () => {
   const MAXCHARGE = 100;
   const inventory = [];
+  let name = "";
   const getInventory = () => { return inventory };
 
   const charge = MAXCHARGE;
@@ -37,7 +41,17 @@ const drone = () => {
     startCharging(); 
   }
 
+  const setName = (text) => {
+    name = text;
+  }
+
+  const getName = () => {
+    return name;
+  }
+
   const deploy = () => {
+    console.log(getClosestObj(objectsInSpace.getAll()));
+    
     if (chargingTimer) {
       cancelCharging()
     }
@@ -45,7 +59,10 @@ const drone = () => {
 
   return {
     getCharge,
-    getInventory
+    getInventory,
+    deploy,
+    setName,
+    getName
   }
 };
 

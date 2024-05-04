@@ -4,6 +4,10 @@ function roundToFive(x) {
   return Math.ceil(x / 5) * 5; 
 }
 
+function capitalizeFirstLetter(word) {
+  return word[0].trim().toUpperCase() + word.slice(1);
+}
+
 function drawCircle(x, y, radius, context) {
   context.beginPath();
   context.arc(x, y, radius, 0, 2 * Math.PI, false);
@@ -52,6 +56,20 @@ function calculateDistance(object1, object2) {
     return Math.floor(sqrtDistance * 10) - Math.floor(object2.radius) * 10 - 70;
 }
 
+function getClosestObj(objects) {
+  let lowest = 999999999;
+  
+  for (let i = 0; i < objects.length; i++) {
+    let object = objects[i];
+    console.log(object);
+    let distance = calculateDistance(ship, object);
+    if (distance < lowest) {
+      lowest = distance;
+    }
+  }
+  return lowest;
+}
+
 // random int including 0 and excluding max
 function randomInt(max) {
   return Math.floor(Math.random() * max);
@@ -78,8 +96,6 @@ function reverseString(str) {
     return joinArray; // "olleh"
 }
 
-
-
 module.exports = {
   roundToFive,
   drawCircle,
@@ -89,5 +105,7 @@ module.exports = {
   randomInt,
   constructObjectName,
   reverseString,
-  shuffleArray
+  shuffleArray,
+  getClosestObj,
+  capitalizeFirstLetter
 }
