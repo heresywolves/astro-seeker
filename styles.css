@@ -194,3 +194,7 @@ button.active {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
 }
+
+#dronesDisplay .drone-wrapper.deployed::before {
+  content: "deployed";
+}

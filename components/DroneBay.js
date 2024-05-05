@@ -7,29 +7,24 @@ const dronebay = (() => {
   const drones = [];
 
   const initDrones = () => {
-    let drone1 = drone();
-    drone1.setName('maxwell');
+    let drone1 = drone('maxwell');
     drones.push(drone1);
   } 
 
   const updateDroneDisplay = () => {
+    console.log('updating drone display')
+    //clearing drones
+    if (dronesDisplay.hasChildNodes()) {
+      let oldEls = dronesDisplay.childNodes;
+      for (let i = 0; i < oldEls.length; i++) {
+        oldEls[i].remove();
+      }
+    }
+
+    //adding drones
     for (let i = 0; i < drones.length; i++) {
       let curDrone = drones[i];
-
-      const containerEl = document.createElement('div');
-      containerEl.classList.add('drone-wrapper');
-      
-      const nameEl = document.createElement('p');
-      nameEl.classList.add('drone-name');
-      nameEl.textContent = capitalizeFirstLetter(curDrone.getName());
-
-      const chargeEl = document.createElement('p');
-      chargeEl.classList.add('drone-charge');
-      chargeEl.textContent = curDrone.getCharge();
-
-      containerEl.appendChild(nameEl);
-      containerEl.appendChild(chargeEl);
-      dronesDisplay.appendChild(containerEl);
+      dronesDisplay.appendChild(curDrone.getDomEl());
     }
   }
 
@@ -41,12 +36,18 @@ const dronebay = (() => {
       return "No drone name specified. Deployment cancelled";
     }  
     let closestObj = getClosestObj(ship, objectsInSpace.getAll());
-    console.log(calculateDistance(ship, closestObj));
+    if (calculateDistance(ship, closestObj) > 20) {
+      return `No celestial bodies in reach. 20m of proximity needed.`
+    }
     
     for (let i = 0; i < drones.length; i++) {
       let curDrone = drones[i]; 
+      if (curDrone.isDeployed()) {
+        return `${capitalizeFirstLetter(curDrone.getName())} is already deployed.`
+      }
       if (curDrone.getName() === name.toLowerCase()) {
         curDrone.deploy();
+        updateDroneDisplay();
         return `Deployed ${capitalizeFirstLetter(name)}`
       }
     }
@@ -60,7 +61,8 @@ const dronebay = (() => {
 
   return {
     getDrones,
-    deploy
+    deploy,
+    updateDroneDisplay
   }
 })();
 
