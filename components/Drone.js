@@ -1,5 +1,5 @@
 const { droneCargoContainer } = require('../DOMelements');
-const { getClosestObj, capitalizeFirstLetter } = require('../components/utils');
+const { getClosestObj, capitalizeFirstLetter, randomInt } = require('../components/utils');
 const objectsInSpace = require('../constants/objectsInSpace');
 const ship = require('./Ship');
 
@@ -67,8 +67,28 @@ const drone = (initName) => {
 
   setDomEl(createDroneDomEl());
 
-  const scanRoom = () => {
+  let curTargetLootIteration = 0;
+  const scanRoom = (target) => {
     console.log('scanning room');
+    let loot = target.loot;
+    if (!loot[curTargetLootIteration]) {
+      curTargetLootIteration++;
+      return;
+    }
+    if (curTargetLootIteration >= loot.length) {
+      curTargetLootIteration = 0;
+    }
+    console.log(`loot iteration: ${curTargetLootIteration}`);
+    let chance = loot[curTargetLootIteration].chance;
+    if (randomInt(101) < chance) {
+      inventory.push(loot[curTargetLootIteration]);
+      target.loot[curTargetLootIteration] = null;
+      console.log('Looting successful. Inventory:');
+      console.log(inventory);
+      console.log('Target:')
+      console.log(target);
+    }
+    curTargetLootIteration++;
   }
 
   const setName = (text) => {
@@ -90,8 +110,9 @@ const drone = (initName) => {
     domEl.classList.add('deployed');
 
     // the check for proximity is already in place at the drone bay
-    let target = getClosestObj(ship, objectsInSpace);
-    scanTimer = setInterval(scanRoom, 10000 / CPUcount);
+    let target = getClosestObj(ship, objectsInSpace.getAll());
+    console.log(objectsInSpace);
+    scanTimer = setInterval(() => { scanRoom(target) }, 10000 / CPUcount);
 
     if (chargingTimer) {
       cancelCharging();
@@ -99,7 +120,6 @@ const drone = (initName) => {
     energyDrainTimer = setInterval(() => {
       // return home on depleted charge is in changeCharge func
       changeCharge(-1);
-      console.log('charge: ' + getCharge());
     }, 1000);
   }
 

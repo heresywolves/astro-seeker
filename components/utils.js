@@ -55,6 +55,7 @@ function calculateDistance(object1, object2) {
     return Math.floor(sqrtDistance * 10) - Math.floor(object2.radius) * 10 - 70;
 }
 
+// needs and array of objects as argument
 function getClosestObj(ship, objects) {
   let closestDist = Infinity;
   let closestObj = objects[0];

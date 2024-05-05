@@ -12,7 +12,6 @@ const dronebay = (() => {
   } 
 
   const updateDroneDisplay = () => {
-    console.log('updating drone display')
     //clearing drones
     if (dronesDisplay.hasChildNodes()) {
       let oldEls = dronesDisplay.childNodes;
