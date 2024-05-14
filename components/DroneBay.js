@@ -57,11 +57,28 @@ const dronebay = (() => {
     return drones;
   }
 
+  const returnDrone = (name) => {
+    if (!name) {
+      return "No drone name specified.";
+    }  
+    for (let i = 0; i < drones.length; i++) {
+      let curDrone = drones[i]; 
+      if (curDrone.isDeployed()) {
+        if (curDrone.getName() === name.toLowerCase()) {
+          curDrone.returnHome();
+        }
+        return `${capitalizeFirstLetter(curDrone.getName())} is retrieved and charging.`
+      }
+    }
+    return `There are no drones with the name specified.`
+  }
+
 
   return {
     getDrones,
     deploy,
-    updateDroneDisplay
+    updateDroneDisplay,
+    returnDrone
   }
 })();
 

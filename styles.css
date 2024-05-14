@@ -34,6 +34,10 @@ body {
   grid-template-rows: 1fr 1fr 1fr;
 }
 
+.hidden {
+  height: 0 !important;
+}
+
 #astrotrackerContainer {
   grid-column: 1;
 }
@@ -206,8 +210,10 @@ button.active {
   width: 30px;
 }
 
-#droneCargoDisplay {
+#droneCargoDisplay,
+#shipCargoDisplay {
   overflow: auto;
+  height: 100%;
 }
 
 /* DRONE BAY */

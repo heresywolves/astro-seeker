@@ -17,7 +17,11 @@ const {
   scaleRadarUpButton,
   engineOffButton,
   engineOnButton,
-  sortDistanceTrackerButton
+  sortDistanceTrackerButton,
+  shipCargoButton,
+  drone1CargoButton,
+  droneCargoDisplay,
+  shipCargoDisplay,
 } = require('./DOMelements.js');
 const astrotracker = require('./components/Astrotracker.js');
 const radar = require('./components/Radar.js');
@@ -238,4 +242,18 @@ sortDistanceTrackerButton.addEventListener('click', () => {
       sortDistanceTrackerButton.classList.remove('active');
       astrotracker.turnOffSortByDist();
     }
+})
+
+shipCargoButton.addEventListener('click', () => {
+  shipCargoButton.classList.add('active');
+  drone1CargoButton.classList.remove('active');
+  droneCargoDisplay.classList.add('hidden');
+  shipCargoDisplay.classList.remove('hidden');
+})
+
+drone1CargoButton.addEventListener('click', () => {
+  shipCargoButton.classList.remove('active');
+  drone1CargoButton.classList.add('active');
+  droneCargoDisplay.classList.remove('hidden');
+  shipCargoDisplay.classList.add('hidden');
 })

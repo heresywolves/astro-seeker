@@ -16,6 +16,13 @@ const ship = {
   engineOn: false,
   engineLvl: 7,
   velocityCap: 100,
+  inventory: [],
+  addToInventory: (arr) => {
+    ship.inventory.push(...arr)
+  },
+  getInventory: () => {
+    return ship.inventory;
+  },
   // Function to update ship direction on the screen
   updateShipDirection: () => {
     shipDirectionValueHud.textContent = ship.direction;

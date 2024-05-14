@@ -1,7 +1,8 @@
-const { droneCargoDisplay } = require('../DOMelements');
+const { droneCargoDisplay, shipCargoDisplay } = require('../DOMelements');
 const { getClosestObj, capitalizeFirstLetter, randomInt } = require('../components/utils');
 const objectsInSpace = require('../constants/objectsInSpace');
 const ship = require('./Ship');
+const terminal = require('./Terminal');
 
 const drone = (initName) => {
   const MAXCHARGE = 100;
@@ -27,6 +28,8 @@ const drone = (initName) => {
   const changeCharge = (ammount) => {
     if ((charge + ammount) < 0) {
       charge = 0;
+      // FIx circular dependance here
+      // terminal.printOut(`${getName()}: Drone battery is at 0. Returning to the drone hub.`)
       returnHome();
     } else if ((charge + ammount) > MAXCHARGE) {
       charge = MAXCHARGE;
@@ -137,10 +140,39 @@ const drone = (initName) => {
   }
 
   const returnHome = () => {
-    console.log('returning home');
     clearEnergyDrainTimer();
     clearScanTimer();
     startCharging(); 
+    passInventoryToShip();
+  }
+
+  const passInventoryToShip = () => {
+    ship.addToInventory(inventory);
+    clearDroneDisplay();
+    updateShipCargoDisplay();
+  }
+
+  const updateShipCargoDisplay = () => {
+    for (let i = 0; i < inventory.length; i++) {
+      let item = inventory[i];
+      let itemContainer = document.createElement('div');
+      itemContainer.classList.add('item-container');
+      let itemName = document.createElement('p');
+      itemName.classList.add('item-name');
+      itemName.textContent = item.name;
+      let itemImg = document.createElement('img');
+      itemImg.src = item.image;
+      itemImg.classList.add('item-img');
+      itemContainer.appendChild(itemImg);
+      itemContainer.appendChild(itemName);
+      shipCargoDisplay.appendChild(itemContainer);
+    }
+  }
+
+  const clearDroneDisplay = () => {
+    while (droneCargoDisplay.firstChild) {
+      droneCargoDisplay.removeChild(droneCargoDisplay.firstChild);
+    }
   }
 
   const clearEnergyDrainTimer = () => {
@@ -162,7 +194,8 @@ const drone = (initName) => {
     setDomEl,
     createDroneDomEl,
     isDeployed,
-    updateDomEl
+    updateDomEl,
+    returnHome
   }
 };
 

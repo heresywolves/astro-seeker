@@ -77,6 +77,13 @@ const terminal = (function() {
           let droneName = words[2];
           let deploymentMessage = dronebay.deploy(droneName);
             printOut(deploymentMessage);
+        } else if (words[1] === 'return' && !words[2]) {
+          printOut(`Please specify the drones to return: 
+          drone return [name]`);
+        } else if (words[1] === 'return' && words[2]) {
+          let droneName = words[2];
+          let returnMessage = dronebay.returnDrone(droneName);
+          printOut(returnMessage);
         }
         break;
       default:
