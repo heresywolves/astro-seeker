@@ -2,7 +2,7 @@
 const loot = [
   { 
     name: "Hairbrush",
-    image: "./assets/hairbrush.svg",
+    image: "./assets/lootImages/hairbrush.svg",
     teir: "low",
     chance: 80
   }

@@ -6,6 +6,7 @@ const radar = require('./components/Radar.js');
 const ship = require('./components/Ship.js');
 require('./components/Terminal.js');
 const droneBay = require('./components/DroneBay.js');
+const cargomon = require('./components/CargoMonitor.js')
 require('./listeners.js');
 
 
@@ -22,6 +23,7 @@ function updateGame() {
 }
 
 function gameLoop() {
+  // cargomon.update();
   droneBay.updateDroneDisplay();
   requestAnimationFrame(gameLoop);
 }

@@ -1,4 +1,4 @@
-const { droneCargoContainer } = require('../DOMelements');
+const { droneCargoDisplay } = require('../DOMelements');
 const { getClosestObj, capitalizeFirstLetter, randomInt } = require('../components/utils');
 const objectsInSpace = require('../constants/objectsInSpace');
 const ship = require('./Ship');
@@ -71,24 +71,37 @@ const drone = (initName) => {
   const scanRoom = (target) => {
     console.log('scanning room');
     let loot = target.loot;
-    if (!loot[curTargetLootIteration]) {
-      curTargetLootIteration++;
-      return;
-    }
     if (curTargetLootIteration >= loot.length) {
       curTargetLootIteration = 0;
     }
-    console.log(`loot iteration: ${curTargetLootIteration}`);
-    let chance = loot[curTargetLootIteration].chance;
-    if (randomInt(101) < chance) {
-      inventory.push(loot[curTargetLootIteration]);
-      target.loot[curTargetLootIteration] = null;
-      console.log('Looting successful. Inventory:');
-      console.log(inventory);
-      console.log('Target:')
-      console.log(target);
+    if (loot[curTargetLootIteration]) {
+      console.log(`loot iteration: ${curTargetLootIteration}`);
+      let chance = loot[curTargetLootIteration].chance;
+      if (randomInt(101) < chance) {
+        inventory.push(loot[curTargetLootIteration]);
+        addItemToDisplay(loot[curTargetLootIteration]);
+        target.loot[curTargetLootIteration] = null;
+        console.log('Looting successful. Inventory:');
+        console.log(inventory);
+        console.log('Target:')
+        console.log(target);
+      }
     }
     curTargetLootIteration++;
+  }
+
+  const addItemToDisplay = (item) => {
+    let itemContainer = document.createElement('div');
+    itemContainer.classList.add('item-container');
+    let itemName = document.createElement('p');
+    itemName.classList.add('item-name');
+    itemName.textContent = item.name;
+    let itemImg = document.createElement('img');
+    itemImg.src = item.image;
+    itemImg.classList.add('item-img');
+    itemContainer.appendChild(itemImg);
+    itemContainer.appendChild(itemName);
+    droneCargoDisplay.appendChild(itemContainer);
   }
 
   const setName = (text) => {

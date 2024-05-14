@@ -190,10 +190,27 @@ button.active {
   text-align: center;
 }
 
+/* CARGO MON */
+
 #cargoContainer {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
+  height: 423px;
 }
+
+#cargoContainer .item-container {
+  display: flex;
+}
+
+#cargoContainer img.item-img {
+  width: 30px;
+}
+
+#droneCargoDisplay {
+  overflow: auto;
+}
+
+/* DRONE BAY */
 
 #dronesDisplay .drone-wrapper.deployed::before {
   content: "deployed";
