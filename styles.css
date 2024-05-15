@@ -21,6 +21,11 @@
 
 /* Might use this for black bg alternative rgb(24, 15, 15) */
 
+:root {
+  --green-text: rgb(1, 203, 1);
+  --white-text: rgb(220, 220, 220);
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -30,40 +35,86 @@ body {
   overflow: hidden;
   font-family: "Tomorrow", monospace;
   display: grid;
-  grid-template-columns: 1fr 1fr min-content;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: min-content 1fr min-content;
+  grid-template-rows: 390px min-content 1fr;
+  background-color: rgb(34, 34, 39);
+  color: var(--white-text);
+ }
+
+button {
+  background-color: rgb(19, 20, 28);
+  /* font-weight: 600; */
+  font-family: "Tomorrow", monospace;
+  color: var(--white-text);
+}
+
+button.active {
+  color: black;
+  background-color: rgb(170, 255, 0);
+  font-weight: 900;
 }
 
 .hidden {
   height: 0 !important;
 }
 
+/* AstroTracker */
+
 #astrotrackerContainer {
   grid-column: 1;
+  padding-left: 10px;
 }
+
+#astroTrackerTopPanel {
+  display: flex;
+  gap:20px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+#astroTrackerTopPanel p {
+  margin: 0;
+}
+
+#astroTrackerTopPanel button {
+  height: 20px;
+}
+
+#astroTrackerName {
+  color: rgb(227, 66, 66);
+  text-emphasis: filled red;
+  margin-right: auto !important;
+}
+
+#astrotrackerDisplay {
+  overflow: auto;
+  height: 334px;
+  background-color:  rgb(24, 24, 28);
+  padding: 5px;
+  color: var(--white-text); 
+}
+
+
+/* RADAR */
 
 #radarContainer {
   grid-column: 1;
   grid-row: 2 / 4;
+  padding-left: 10px;
 }
 
-#terminalContainer {
-  grid-column: 3;
-  grid-row: 1 / 4;
-  width: 500px;
-  height: 100%;
-}
-
-#terminalScreen {
-  height: 100%; 
+#radarButtons {
+  padding: 10px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 }
 
-#shipControlsContainer {
-  grid-column: 2 / 3;
-  grid-row: 3;
+#radarButtons button {
+  min-width: 40px;
 }
+
+
 
 #shipDirectionHudContainer {
   position: absolute;
@@ -172,11 +223,6 @@ canvas {
   content: ">";
 }
 
-#astrotrackerDisplay {
-  overflow: auto;
-  height: 350px;
-}
-
 .scanned-obj-container {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
@@ -184,10 +230,6 @@ canvas {
 
 .scanned-obj-name {
   margin-right: auto;
-}
-
-button.active {
-  background-color: rgb(170, 255, 0);
 }
 
 .centered-text {
@@ -199,7 +241,17 @@ button.active {
 #cargoContainer {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
-  height: 423px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#cargoContainerTopPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 51px;
 }
 
 #cargoContainer .item-container {
@@ -213,11 +265,115 @@ button.active {
 #droneCargoDisplay,
 #shipCargoDisplay {
   overflow: auto;
+  background-color: rgb(24, 24, 28);
+  margin-left: 20px;
+  margin-right: 20px;
   height: 100%;
 }
 
 /* DRONE BAY */
 
+#droneBayContainer {
+  /* padding: 10px 20px; */
+  border-top: 10px solid rgb(34, 34, 39);
+  border-bottom: 10px solid rgb(34, 34, 39);
+  border-left: 20px solid rgb(34, 34, 39);
+  border-right: 20px solid rgb(34, 34, 39);
+  display: flex;
+  flex-direction: row;
+  background-image: url(./assets/dronebaybg.png);
+  background-size: 100%;
+  background-position: center;
+}
+
 #dronesDisplay .drone-wrapper.deployed::before {
   content: "deployed";
+}
+
+.drone-wrapper {
+  width: 100px;
+  border: 4px solid rgb(55, 56, 59);
+  padding: 0 10px;
+  background-color: rgb(21, 21, 21);
+}
+
+.drone-name {
+  font-size: 0.6rem;
+}
+
+.drone-charge {
+  font-size: 0.7rem;
+  color: var(--green-text);
+}
+
+/* Ship Controls */
+#shipControlsContainer {
+  grid-column: 2 / 3;
+  grid-row: 3;
+  padding: 10px 20px;
+}
+
+#engineControlButtons {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+
+#shipInfo {
+  background-color: black;
+  padding: 10px;
+  margin: 20px 0;
+  font-size: 0.8rem;
+}
+
+#shipInfo p {
+  margin: 5px 0;
+}
+
+#shipAngleButtons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Terminal */
+
+#terminalContainer {
+  grid-column: 3;
+  grid-row: 1 / 4;
+  width: 500px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#terminalScreen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#terminalInput {
+  background-color: black;
+  border: none;
+  color: var(--green-text);
+  padding: 20px 30px;
+  font-size: 1.1rem;
+  font-family: "Tomorrow", monospace;
+  position: relative;
+}
+
+#terminalInput:focus {
+  border: none;
+  outline: none;
+}
+
+#inputMark {
+  background: none;
+  position: absolute;
+  z-index: 10;
+  bottom: 18px;
+  left: 10px;
+  font-size: 1.1rem;
+  color: var(--green-text);
 }

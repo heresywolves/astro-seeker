@@ -11,6 +11,7 @@ const drone = (initName) => {
   let domEl;
   let deployed = false;
   let CPUcount = 2;
+  let droneNumber = 1;
   const getInventory = () => { return inventory };
 
   let charge = MAXCHARGE;
@@ -57,7 +58,7 @@ const drone = (initName) => {
     
     const nameEl = document.createElement('p');
     nameEl.classList.add('drone-name');
-    nameEl.textContent = capitalizeFirstLetter(name);
+    nameEl.textContent = "D" + droneNumber + ': ' + capitalizeFirstLetter(name);
 
     const chargeEl = document.createElement('p');
     chargeEl.classList.add('drone-charge');

@@ -127,6 +127,7 @@ engineOffButton.addEventListener('click', () => {
     radar.update();
   
     ship.updateShipPosition(); 
+    ship.updateShipVelocity();
 
     if (ship.velocity <= 0) {
       ship.velocity = 0;
