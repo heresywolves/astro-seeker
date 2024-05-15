@@ -255,7 +255,12 @@ canvas {
 }
 
 #cargoContainer .item-container {
+  gap: 20px;
+  margin-left: 10px;
   display: flex;
+  color: var(--white-text);
+  align-items: center;
+  font-size: 0.9rem;
 }
 
 #cargoContainer img.item-img {
@@ -288,9 +293,14 @@ canvas {
 
 #dronesDisplay .drone-wrapper.deployed::before {
   content: "deployed";
+  font-size: 0.6rem;
+  position: absolute;
+  bottom: 5px;
+  right: 5px
 }
 
 .drone-wrapper {
+  position: relative;
   width: 100px;
   border: 4px solid rgb(55, 56, 59);
   padding: 0 10px;

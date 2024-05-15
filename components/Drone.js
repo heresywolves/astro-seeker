@@ -22,7 +22,7 @@ const drone = (initName) => {
     domEl = el;
   }
   const updateDomEl = () => {
-    domEl.querySelector('.drone-name').textContent = capitalizeFirstLetter(getName());
+    domEl.querySelector('.drone-name').textContent =  "D" + droneNumber + ': ' + capitalizeFirstLetter(getName());
     domEl.querySelector('.drone-charge').textContent = getCharge();
   }
 
@@ -145,6 +145,8 @@ const drone = (initName) => {
     clearScanTimer();
     startCharging(); 
     passInventoryToShip();
+    domEl.classList.remove('deployed');
+    deployed = false;
   }
 
   const passInventoryToShip = () => {
